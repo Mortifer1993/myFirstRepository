@@ -1,0 +1,10 @@
+function random(x,y) {
+  let a;
+   do{
+     a = Math.random()*10
+   } while (!(a >= x && a < y));
+   return a;
+}
+
+
+alert( random(1,5));
