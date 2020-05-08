@@ -1,0 +1,13 @@
+function readNumber(){
+  let a = prompt("введите число","");
+  if (a == "" || a == null){
+    return null;
+  };
+  a = +a;
+  if (!(isFinite(a))){
+    return readNumber();
+  };
+  return a;
+}
+
+alert(readNumber());
