@@ -1,0 +1,12 @@
+function checkSpam(word){
+if( word.includes("ViAgRA") || word.includes("xxx")){
+  return true;
+}
+return false;
+}
+
+
+
+checkSpam('buy ViAgRA now') == true
+checkSpam('free xxxxx') == true
+checkSpam("innocent rabbit") == false
