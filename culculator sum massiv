@@ -1,0 +1,15 @@
+let sum = [];
+
+function sumInput() {
+  let value = +prompt ("введите число","0");
+  if (isFinite(value) && value){
+    sum.push(value);
+    return sumInput();
+  }
+  let val = 0;
+  for (let a of sum){
+    val += a;
+  }
+  return val;
+}
+alert (sumInput());
