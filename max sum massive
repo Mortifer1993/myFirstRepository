@@ -1,0 +1,49 @@
+function getMaxSubSum (arra) {
+let arr = arra;
+let summa = [];
+let summaReturn =[];
+let value;
+let a = 0;
+
+let b;
+for( b = 0; b < arr.length; b++){
+let sum = 0
+for (let i = b ; sum >= 0 ; i++ ){
+value = sum;
+sum += +arr[i];
+}
+summa.push(value);
+}
+
+for( b = arr.length - 1; b >= 0; b--){
+let sum = 0
+for (let i = b ; sum >= 0 ; i-- ){
+value = sum;
+sum += +arr[i];
+}
+summaReturn.push(value);
+}
+
+
+let result = 0;
+for ( let d = 0; d < arr.length ; d++) {
+if ( result < arr[d]) {
+result = +arr[d];
+}
+}
+
+for ( let p = 0; p < summa.length ; p++) {
+if ( result < summa[p]) {
+result = +summa[p];
+}
+}
+
+for ( let p = 0; p < summa.length ; p++) {
+if ( result < summaReturn[p]) {
+result = +summaReturn[p];
+}
+}
+
+return result;
+
+}
