@@ -1,0 +1,17 @@
+function Calculator () {
+  this.calculate = function (str) {
+    let arr = str.split (" ");
+    let val = arr.filter( (item, index) => (item == "+" || item == "-") );
+    for(let i = 0; i < arr.length; i++) {
+      if( arr[i] == '+' || arr[i] == '-' ){
+        arr.splice(i, 1);
+      }
+    } 
+    if (val.includes("+")){
+    return arr.reduce((sum, item) => +sum + +item, 0);
+    }
+    if (val.includes("-")){
+    return arr.reduce((sum, item) => +sum - +item);
+    }
+  }
+}
