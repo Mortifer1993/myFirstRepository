@@ -1,17 +1,57 @@
+let newMethod = {};
+  let znach;
+
 function Calculator () {
-  this.calculate = function (str) {
-    let arr = str.split (" ");
-    let val = arr.filter( (item, index) => (item == "+" || item == "-") );
-    for(let i = 0; i < arr.length; i++) {
-      if( arr[i] == '+' || arr[i] == '-' ){
-        arr.splice(i, 1);
-      }
-    } 
-    if (val.includes("+")){
-    return arr.reduce((sum, item) => +sum + +item, 0);
-    }
-    if (val.includes("-")){
-    return arr.reduce((sum, item) => +sum - +item);
-    }
+
+  this.addMethod = function (name, func(a,b)){ 
+    return {operator: name, func: func(a,b),};
   }
+    newMethod.push(this.addMethod());
+    alert(newMethod.length);
+
+  this.calculate = function (str) {
+    let arrStr = str.split(" ");
+      let arrSum = [];
+      if(arrStr.includes("+") || arrStr.includes("-")){
+      for (let i = 0; i < arrStr.length; i++ ){
+      if (arrStr[i] == "+" || arrStr[i] == "-") {
+        arrSum.push (arrStr[i]);
+        arrStr.splice( i, 1);
+        i--;
+        }
+      }  
+
+      if(arrSum.includes("+")){
+      return arrStr.reduce( (a ,b) => parseInt(a) + parseInt(b));
+      }
+      if(arrSum.includes("-")){
+      return arrStr.reduce( (a ,b) => parseInt(a) - parseInt(b));
+      }
+    }
+    for(let i = 0; i < arrStr.length; i++){
+      let valueMass = arrStr[i];
+      if ( newMethod.includes(valueMass)){
+        znach = arrStr[i];
+        arrStr.splice( i, 1);
+        i--;
+      }
+    }
+      
+    /*let sum = newMethod.find(item => item.operator == znach)
+    return  arrStr.reduce( sum.fn );*/
+  }
+
 }
+
+//let calc = new Calculator;
+
+//alert( calc.calculate("34 + 12") ); // 10
+//alert( calc.calculate("34 - 12") ); // 10
+
+let powerCalc = new Calculator;
+powerCalc.addMethod("*", (a, b) => a * b);
+powerCalc.addMethod("/", (a, b) => a / b);
+powerCalc.addMethod("**", (a, b) => a ** b);
+
+let result = powerCalc.calculate("2 ** 3");
+alert( result ); // 8
