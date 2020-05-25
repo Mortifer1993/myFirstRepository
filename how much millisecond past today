@@ -1,0 +1,14 @@
+function getSecondsToday(time) {
+  let today = new Date();
+  today.setHours(0, 0, 0 , 0);
+  let userTime = today;
+  userTime.setHours(time || 0);
+
+ return(((userTime == today) ? Date.now() :
+     userTime.getTime()) - today.getTime());
+  
+}
+
+
+
+alert(getSecondsToday(10));
