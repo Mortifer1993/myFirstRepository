@@ -1,57 +1,39 @@
-let newMethod = {};
-  let znach;
-
 function Calculator () {
+  this.method = [
+    {operator: "+",
+     methodObj:((a, b) => +a + +b),
+    },
+    {operator: "-",
+     methodObj:((a, b) => a - b),
+    },
+  ];
 
-  this.addMethod = function (name, func(a,b)){ 
-    return {operator: name, func: func(a,b),};
-  }
-    newMethod.push(this.addMethod());
-    alert(newMethod.length);
-
-  this.calculate = function (str) {
-    let arrStr = str.split(" ");
-      let arrSum = [];
-      if(arrStr.includes("+") || arrStr.includes("-")){
-      for (let i = 0; i < arrStr.length; i++ ){
-      if (arrStr[i] == "+" || arrStr[i] == "-") {
-        arrSum.push (arrStr[i]);
-        arrStr.splice( i, 1);
-        i--;
-        }
-      }  
-
-      if(arrSum.includes("+")){
-      return arrStr.reduce( (a ,b) => parseInt(a) + parseInt(b));
-      }
-      if(arrSum.includes("-")){
-      return arrStr.reduce( (a ,b) => parseInt(a) - parseInt(b));
+  this.calculate = function(value) {
+    let arr = value.split(" ");
+    let val = arr.filter(item => Number(item));
+    for (let i of val) {
+      let a = arr.indexOf(i);
+      arr.splice(a, 1);
+    }
+    for (let i = 0; i < this.method.length; i++) {
+      if(arr[0] ==  this.method[i].operator) {
+        let v = val.reduce(this.method[i].methodObj);
+        return v;
       }
     }
-    for(let i = 0; i < arrStr.length; i++){
-      let valueMass = arrStr[i];
-      if ( newMethod.includes(valueMass)){
-        znach = arrStr[i];
-        arrStr.splice( i, 1);
-        i--;
-      }
-    }
-      
-    /*let sum = newMethod.find(item => item.operator == znach)
-    return  arrStr.reduce( sum.fn );*/
-  }
+  };
 
+  this.addMethod = function(op, func) {
+    let obj = {
+      operator: op,
+      methodObj: func,
+    }
+    return this.method.push(obj);
+  };
 }
-
-//let calc = new Calculator;
-
-//alert( calc.calculate("34 + 12") ); // 10
-//alert( calc.calculate("34 - 12") ); // 10
 
 let powerCalc = new Calculator;
 powerCalc.addMethod("*", (a, b) => a * b);
 powerCalc.addMethod("/", (a, b) => a / b);
 powerCalc.addMethod("**", (a, b) => a ** b);
-
-let result = powerCalc.calculate("2 ** 3");
-alert( result ); // 8
+alert( powerCalc.calculate("2 ** 3")); // 10
